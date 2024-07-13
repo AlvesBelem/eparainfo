@@ -2,11 +2,12 @@
 {% load static %}
 
 {% block head %}
-    <title>ParaInfo -> Home</title>
+    <title>ParaInfo -> Carrinho</title>
 {% endblock %}
 
 {% block body %}
-    <h1>Home</h1>
+    <h1>Carrinho</h1>
+    <a href="{% url 'checkout' %}">Checkout</a>
 {% endblock %}
 
 {% block footer %}
