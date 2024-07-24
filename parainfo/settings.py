@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'loja',
+    'loja'
 ]
 
 MIDDLEWARE = [
@@ -75,10 +76,29 @@ WSGI_APPLICATION = 'parainfo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": "parainfo",
+    #     "USER": "postgres",
+    #     "PASSWORD": "#OL792021m@#P",
+    #     "HOST": "137.184.228.179",
+    #     "PORT": "5433",
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "remoto",
+        "USER": "postgres",
+        "PASSWORD": "123456",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 

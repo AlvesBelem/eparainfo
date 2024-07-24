@@ -14,80 +14,131 @@ class Cliente(models.Model):
         return f"Nome: {self.nome} | Email: {self.email}"
     
 class Cor(models.Model):
+    id_cor = models.CharField(max_length=100, primary_key=True)
     nome = models.CharField(max_length=200, null=True, blank=True)
     codigo = models.CharField(max_length=100, null=True, blank=True)
+    id_detalhe = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return f"Nome: {self.nome} | Codigo: {self.codigo}"
     
 class Marca(models.Model):
+    id_marca = models.CharField(max_length=100, primary_key=True)
     nome = models.CharField(max_length=200, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return f"Nome: {self.nome}"
     
-class MemoriaRam(models.Model):
-    tipo = models.CharField(max_length=200, null=True, blank=True)
+class Mram(models.Model):
+    id_mram = models.CharField(max_length=100, primary_key=True)
+    nome = models.CharField(max_length=200, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return f"Nome: {self.tipo}"
     
 class Armazenamento(models.Model):
-    tipo = models.CharField(max_length=200, null=True, blank=True)
+    id_hd = models.CharField(max_length=100, primary_key=True)
+    nome = models.CharField(max_length=200, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return f"Nome: {self.tipo}"
     
 class Processador(models.Model):
-    tipo = models.CharField(max_length=200, null=True, blank=True)
+    id_process = models.CharField(max_length=100, primary_key=True)
+    nome = models.CharField(max_length=200, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return f"Nome: {self.tipo}"
     
 
 class Categoria(models.Model): 
-    id = models.CharField(max_length=100, primary_key=True)
+    id_categoria = models.CharField(max_length=100, primary_key=True)
     nome = models.CharField(max_length=100, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
+    
     def __str__(self):
         return str(self.nome)
     
 class Tipo(models.Model):
-    id = models.CharField(max_length=100, primary_key=True)
+    id_categoria = models.CharField(max_length=100, primary_key=True)
     nome = models.CharField(max_length=100, null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
+    categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.SET_NULL)
+    
     def __str__(self):
         return str(self.nome)
     
-class Dimensao(models.Model):
+class Grafic(models.Model): 
+    id_grafic = models.CharField(max_length=100, primary_key=True)
     nome = models.CharField(max_length=100, null=True, blank=True)
-    Altura = models.DecimalField(max_digits=5, decimal_places=2)
-    Largura = models.DecimalField(max_digits=5, decimal_places=2)
-    Comprimento = models.DecimalField(max_digits=5, decimal_places=2)
+    slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
     
     def __str__(self):
         return str(self.nome)
+    
+class TipoTela(models.Model): 
+    id_tipoTela = models.CharField(max_length=100, primary_key=True)
+    nome = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.nome)
+
+class So(models.Model): 
+    id_so = models.CharField(max_length=100, primary_key=True)
+    nome = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.nome)
+    
+class Modelo(models.Model): 
+    id_modelo = models.CharField(max_length=100, primary_key=True)
+    nome = models.CharField(max_length=100, null=True, blank=True)
+    slug = models.CharField(max_length=100, null=True, blank=True)
+    id_produto = models.CharField(max_length=200, null=True, blank=True)
+    
+    def __str__(self):
+        return str(self.nome)
+    
+# class Dimensao(models.Model):
+#     Altura = models.DecimalField(max_digits=5, decimal_places=2)
+#     Largura = models.DecimalField(max_digits=5, decimal_places=2)
+#     Comprimento = models.DecimalField(max_digits=5, decimal_places=2)
+#     id_produto = models.CharField(max_length=200, null=True, blank=True)
+    
+#     def __str__(self):
+#         return str(self.nome)
     
 class Produto(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
     nome = models.CharField(max_length=200, null=True, blank=True)
-    preco_sugerido = models.DecimalField(max_digits=10, decimal_places=2, default=0.000)
-    preco_praticado = models.DecimalField(max_digits=10, decimal_places=2, default=0.000)
     descricao = models.TextField(max_length=1000,null=True, blank=True)
     categoria = models.ForeignKey(Categoria, null=True, blank=True, on_delete=models.SET_NULL)
     tipo = models.ForeignKey(Tipo, null=True, blank=True, on_delete=models.SET_NULL)
     marca = models.ForeignKey(Marca, null=True, blank=True, on_delete=models.SET_NULL)
-    memoria_ram = models.ForeignKey(MemoriaRam, null=True, blank=True, on_delete=models.SET_NULL)
+    memoria_ram = models.ForeignKey(Mram, null=True, blank=True, on_delete=models.SET_NULL)
     armazenamento = models.ForeignKey(Armazenamento, null=True, blank=True, on_delete=models.SET_NULL)
     processador = models.ForeignKey(Processador, null=True, blank=True, on_delete=models.SET_NULL)
+    grafic = models.ForeignKey(Grafic, null=True, blank=True, on_delete=models.SET_NULL)
+    tipoTela = models.ForeignKey(TipoTela, null=True, blank=True, on_delete=models.SET_NULL)
+    so = models.ForeignKey(So, null=True, blank=True, on_delete=models.SET_NULL)
+    modelo = models.ForeignKey(Modelo, null=True, blank=True, on_delete=models.SET_NULL)
     ativo = models.BooleanField(default=True)
-    oferta = models.BooleanField(default=False)
-    dimensao = models.ForeignKey(Dimensao, null=True, blank=True, on_delete=models.SET_NULL)
-    peso = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True, default=0.000)
+    
     
     def __str__(self):
         return f"Nome: {self.nome} | Categoria: {self.categoria} | Tipo: {self.tipo} | Preço: {self.preco}"
@@ -100,9 +151,17 @@ class Produto(models.Model):
 class ItemEstoque(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
     produto = models.ForeignKey(Produto, null=True, blank=True, on_delete=models.SET_NULL)
+    preco_sugerido = models.DecimalField(max_digits=10, decimal_places=2, default=0.000)
+    preco_praticado = models.DecimalField(max_digits=10, decimal_places=2, default=0.000)
     cor = models.ForeignKey(Cor, null=True, blank=True, on_delete=models.SET_NULL)
-    tamanho = models.CharField(max_length=100, null=True, blank=True)
     quantidade = models.IntegerField(default=0)
+    altura = models.CharField(max_length=200, null=True, blank=True)
+    largura = models.CharField(max_length=200, null=True, blank=True)
+    comprimento = models.CharField(max_length=200, null=True, blank=True)
+    peso = models.DecimalField(max_digits=5, decimal_places=3, null=True, blank=True, default=0.000)
+    ativo = models.BooleanField(default=True)
+    oferta = models.BooleanField(default=False)
+    ofertaDia = models.BooleanField(default=False)
     
     def __str__(self):
         return f"Nome: {self.produto.nome} | Cor: {self.cor.nome} | Tamanho: {self.tamanho}"
